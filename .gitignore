@@ -1,0 +1,15 @@
+# Build artifacts
+build/
+*.o
+*.out
+
+# Runtime data
+data/
+
+# Editor junk
+.vscode/
+.DS_Store
+
+# Python 
+__pycache__/
+venv/
