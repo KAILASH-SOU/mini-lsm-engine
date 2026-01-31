@@ -10,7 +10,8 @@ public:
     explicit WAL(const std::string& filename);
     void append(const std::string& key, const std::string& value);
 
-    void replay(std::unordered_map<std::string, std::string>& memtable);
+   void replay(MemTable& memtable);
+
 
 private:
     std::string filename_;
