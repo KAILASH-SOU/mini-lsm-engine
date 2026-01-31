@@ -21,4 +21,6 @@ private:
     std::vector<std::string> sstables_;
 
     void flush_memtable();
+    void compact();
+
 };
