@@ -31,21 +31,21 @@ The engine prioritizes:
 
 ### Write Path
 PUT(key, value)
-↓
+-> 
 Append to WAL (disk, sequential)
-↓
+-> 
 Insert into MemTable (RAM)
-↓
+-> 
 Flush MemTable → SSTable (when threshold reached)
 
 
 ### Read Path
 GET(key)
-↓
+-> 
 Check MemTable
-↓
+-> 
 Check newest SSTables first
-↓
+-> 
 Return first matching value
 
 
@@ -114,4 +114,5 @@ g++ -std=c++17 src/*.cpp -Iinclude -o lsm
 
 ### Run 
     ./lsm
+
 
