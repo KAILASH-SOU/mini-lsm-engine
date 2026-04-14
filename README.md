@@ -1,4 +1,4 @@
-# 🚀 Mini LSM Engine
+#  Mini LSM Engine
 
 [![Build Status](https://github.com/KAILASH-SOU/mini-lsm-engine/actions/workflows/build.yml/badge.svg)](https://github.com/KAILASH-SOU/mini-lsm-engine/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -9,7 +9,7 @@ A high-performance, single-node, disk-backed key–value storage engine built fr
 
 ---
 
-## 🏗️ Technical Architecture
+##  Technical Architecture
 
 The Mini LSM Engine is designed for high write throughput and crash resilience. It consists of four primary layers:
 
@@ -27,17 +27,17 @@ To maintain read performance and reclaim space, older SSTables are periodically 
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-- ✅ **Crash Resilience**: Fast recovery via WAL replay.
-- ✅ **Write Efficiency**: Log-structured design prioritizes sequential disk I/O.
-- ✅ **Automatic Compaction**: Background merging of SSTables to optimize storage.
-- ✅ **Zero Dependencies**: Pure C++17 with no external library requirements.
-- ✅ **Safe Concurrency**: Thread-safe MemTable operations.
+- **Crash Resilience**: Fast recovery via WAL replay.
+- **Write Efficiency**: Log-structured design prioritizes sequential disk I/O.
+- **Automatic Compaction**: Background merging of SSTables to optimize storage.
+- **Zero Dependencies**: Pure C++17 with no external library requirements.
+- **Safe Concurrency**: Thread-safe MemTable operations.
 
 ---
 
-## 🛠️ Build & Run
+## Build & Run
 
 ### Prerequisites
 - A C++17 compliant compiler (e.g., `g++` or `clang++`)
@@ -65,7 +65,7 @@ g++ -std=c++17 -Iinclude src/*.cpp -o lsm_engine
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 .
@@ -83,10 +83,3 @@ g++ -std=c++17 -Iinclude src/*.cpp -o lsm_engine
 
 ---
 
-## 🛡️ License
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-<p align="center">
-  Developed with ❤️ for high-performance storage enthusiasts.
-</p>
