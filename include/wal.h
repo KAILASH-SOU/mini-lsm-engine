@@ -5,6 +5,8 @@
 #include <mutex>
 #include <unordered_map>
 
+class MemTable;
+
 class WAL {
 public:
     explicit WAL(const std::string& filename);

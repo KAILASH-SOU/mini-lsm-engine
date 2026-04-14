@@ -1,118 +1,92 @@
-# Mini Log-Structured Merge Tree (LSM) Storage Engine
+# 🚀 Mini LSM Engine
 
-## Overview
-This project is a **single-node, disk-backed key–value storage engine**
-inspired by **Log-Structured Merge Tree (LSM)** design principles.
+[![Build Status](https://github.com/KAILASH-SOU/mini-lsm-engine/actions/workflows/build.yml/badge.svg)](https://github.com/KAILASH-SOU/mini-lsm-engine/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-The goal of this project is **not** to build a production database,
-but to deeply understand and implement the **core mechanisms used in real
-storage systems** such as RocksDB and LevelDB.
+A high-performance, single-node, disk-backed key–value storage engine built from scratch in C++17. This project implements the core components of modern databases like RocksDB and LevelDB using the **Log-Structured Merge Tree (LSM)** architecture.
 
-The engine prioritizes:
-- Correctness
-- Crash safety
-- Write efficiency
-- Clear separation of responsibilities
+![Architecture Diagram](images/architecture.png)
 
 ---
 
-## Key Features
+## 🏗️ Technical Architecture
 
-- **Write-Ahead Logging (WAL)** for durability
-- **In-memory MemTable** for fast reads and writes
-- **Immutable SSTables** for persistent disk storage
-- **Safe background compaction**
-- **Crash recovery via WAL replay**
-- Clean, modular C++17 codebase
-
----
-
-## High-Level Architecture
-
-### Write Path
-PUT(key, value)
--> 
-Append to WAL (disk, sequential)
--> 
-Insert into MemTable (RAM)
--> 
-Flush MemTable → SSTable (when threshold reached)
-
-
-### Read Path
-GET(key)
--> 
-Check MemTable
--> 
-Check newest SSTables first
--> 
-Return first matching value
-
-
-### Background Tasks
-- MemTable flushing to SSTables
-- SSTable compaction (merge old tables safely)
-
----
-
-## Core Components
+The Mini LSM Engine is designed for high write throughput and crash resilience. It consists of four primary layers:
 
 ### 1. Write-Ahead Log (WAL)
-- Append-only, sequential disk writes
-- Guarantees durability before in-memory updates
-- Used only for crash recovery (not for reads)
+Every write is first appended to a sequential file on disk. This ensures **durability** and allows the engine to recover state after a crash.
 
 ### 2. MemTable
-- In-memory, sorted key–value store
-- Acts as the primary working database
-- Flushed to disk when size threshold is reached
+An in-memory, sorted data structure (Sorted Map) that provides fast lookups and inserts. Once the MemTable reaches a size threshold, it is frozen and flushed to disk as an SSTable.
 
-### 3. SSTables
-- Immutable, sorted disk files
-- Written sequentially
-- Never modified after creation
-- Read-only during normal operation
+### 3. SSTables (Sorted String Tables)
+Immutable disk files containing sorted key-value pairs. Each SSTable represents a snapshot of the database at a point in time.
 
-### 4. Compaction
-- Merges older SSTables into a new one
-- Retains only the latest value for each key
-- Old files are deleted **only after successful merge**
-- Ensures crash safety and correctness
+### 4. Background Compaction
+To maintain read performance and reclaim space, older SSTables are periodically merged into newer, larger files, deduplicating keys and removing stale values.
 
 ---
 
-## Crash Recovery
+## ✨ Key Features
 
-On startup:
-1. Existing SSTables are loaded
-2. WAL is replayed sequentially
-3. MemTable is rebuilt from WAL entries
-4. Engine resumes normal operation
-
-This guarantees that all acknowledged writes
-are recoverable after a crash.
+- ✅ **Crash Resilience**: Fast recovery via WAL replay.
+- ✅ **Write Efficiency**: Log-structured design prioritizes sequential disk I/O.
+- ✅ **Automatic Compaction**: Background merging of SSTables to optimize storage.
+- ✅ **Zero Dependencies**: Pure C++17 with no external library requirements.
+- ✅ **Safe Concurrency**: Thread-safe MemTable operations.
 
 ---
 
-## Design Principles
+## 🛠️ Build & Run
 
-- **Sequential disk writes over random writes**
-- **Immutability for safety**
-- **Write optimization over read simplicity**
-- **Explicit durability vs performance tradeoffs**
-- **Correctness before optimization**
+### Prerequisites
+- A C++17 compliant compiler (e.g., `g++` or `clang++`)
+- `make` (optional but recommended)
 
-
-
-
-
-## Build & Run
-
-### Build
+### Quick Start
 ```bash
-g++ -std=c++17 src/*.cpp -Iinclude -o lsm
+# Clone the repository
+git clone https://github.com/KAILASH-SOU/mini-lsm-engine.git
+cd mini-lsm-engine
 
-### Run 
-    ./lsm
+# Build the project
+make
 
+# Run the demo
+make run
+```
 
+### Manual Compilation
+If you don't have `make` installed:
+```bash
+g++ -std=c++17 -Iinclude src/*.cpp -o lsm_engine
+./lsm_engine
+```
+
+---
+
+## 📂 Project Structure
+
+```text
+.
+├── include/           # Header files (.h)
+│   ├── engine.h       # Core Engine API
+│   ├── memtable.h     # In-memory storage
+│   ├── sstable.h      # Disk persistence
+│   └── wal.h          # Write-Ahead Log
+├── src/               # Implementation files (.cpp)
+│   ├── main.cpp       # Demo entry point
+│   └── ...
+├── images/            # Asset files
+└── Makefile           # Build script
+```
+
+---
+
+## 🛡️ License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+<p align="center">
+  Developed with ❤️ for high-performance storage enthusiasts.
+</p>

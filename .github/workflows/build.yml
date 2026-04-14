@@ -1,0 +1,23 @@
+name: Build CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up C++
+      run: sudo apt-get install -y g++ make
+
+    - name: Build Project
+      run: make
+
+    - name: Run Demo
+      run: ./build/bin/lsm_engine
