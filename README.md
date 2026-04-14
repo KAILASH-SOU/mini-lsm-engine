@@ -57,29 +57,11 @@ make run
 ```
 
 ### Manual Compilation
-If you don't have `make` installed:
+If  don't have `make` installed:
 ```bash
 g++ -std=c++17 -Iinclude src/*.cpp -o lsm_engine
 ./lsm_engine
 ```
 
----
 
-##  Project Structure
-
-```text
-.
-├── include/           # Header files (.h)
-│   ├── engine.h       # Core Engine API
-│   ├── memtable.h     # In-memory storage
-│   ├── sstable.h      # Disk persistence
-│   └── wal.h          # Write-Ahead Log
-├── src/               # Implementation files (.cpp)
-│   ├── main.cpp       # Demo entry point
-│   └── ...
-├── images/            # Asset files
-└── Makefile           # Build script
-```
-
----
 
